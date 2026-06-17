@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wear OS Watch Faces Portfolio</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0ea5e9;
+            --tag-bg: #334155;
+            --tag-text: #e2e8f0;
+            --disabled-bg: #475569;
+            --disabled-text: #94a3b8;
+            --placeholder-bg: #1e293b;
+            --placeholder-border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.5;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 3rem auto;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-grow: 1;
+            width: 100%;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 1rem;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .image-container {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            background-color: #111827;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .watch-preview {
+            width: 85%;
+            height: 85%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #334155;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Coming Soon Text Placeholder Frame */
+        .watch-preview-placeholder {
+            width: 85%;
+            height: 85%;
+            border-radius: 50%;
+            background-color: var(--placeholder-bg);
+            border: 4px dashed var(--placeholder-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.4);
+        }
+
+        .content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .tag {
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.6rem;
+            border-radius: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent);
+            color: #000;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn.disabled {
+            background-color: var(--disabled-bg);
+            color: var(--disabled-text);
+            pointer-events: none;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .btn svg {
+            margin-right: 0.5rem;
+            width: 18px;
+            height: 18px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 1rem 1rem 1rem;
+            margin-top: auto;
+        }
+
+        .privacy-link {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s ease;
+        }
+
+        .privacy-link:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Wear OS Watch Faces</h1>
+        <p>Explore custom Android companion designs for your wrist.</p>
+    </header>
+
+    <main class="grid" id="faces-grid"></main>
+
+    <footer>
+        <a href="privacy.html" class="privacy-link">Privacy Policy & Disclaimer</a>
+    </footer>
+
+    <script>
+        const watchFaces = [
+            {
+                title: "Ahsoka",
+                description: "",
+                image: "https://unsplash.com",
+                storeUrl: "https://google.com",
+                tags: ["Analog", "Star Wars"]
+            },
+            {
+                title: "",
+                description: "",
+                image: "", // Empty image test case
+                storeUrl: "", 
+                tags: [""]
+            }
+        ];
+
+        const grid = document.getElementById('faces-grid');
+
+        watchFaces.forEach(face => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            
+            // Format tags HTML
+            const tagsHTML = face.tags && face.tags.length > 0 
+                ? `<div class="tags-container">${face.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>`
+                : '';
+
+            // Check parameters
+            const hasUrl = face.storeUrl && face.storeUrl.trim() !== "";
+            const hasImage = face.image && face.image.trim() !== "";
+            
+            // Image Preview vs Placeholder Selection
+            const previewHTML = hasImage 
+                ? `<img class="watch-preview" src="${face.image}" alt="${face.title} preview">`
+                : `<div class="watch-preview-placeholder"><span>Coming Soon</span></div>`;
+
+            // Button setup
+            const btnClass = hasUrl ? "btn" : "btn disabled";
+            const btnHref = hasUrl ? `href="${face.storeUrl}" target="_blank" rel="noopener noreferrer"` : '';
+            const btnText = hasUrl ? "Get it on Google Play" : "Coming Soon";
+
+            card.innerHTML = `
+                <div class="image-container">
+                    ${previewHTML}
+                </div>
+                <div class="content">
+                    <h2 class="title">${face.title}</h2>
+                    ${tagsHTML}
+                    <p class="description">${face.description}</p>
+                    <a ${btnHref} class="${btnClass}">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M3,5.27V18.73L16.55,12L3,5.27M17.87,11.33L21,12.91C21.57,13.2 21.57,14.03 21,14.31L17.87,15.9L16.89,12L17.87,11.33M3,3.41C3.33,3.41 3.67,3.5 4,3.65L18.73,11.23L15.65,12.31L3,3.41M3,20.81L15.65,11.91L18.73,13L4,20.57C3.67,20.72 3.33,20.81 3,20.81Z" />
+                        </svg>
+                        <span>${btnText}</span>
+                    </a>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        });
+    </script>
+</body>
+</html>
